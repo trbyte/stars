@@ -4,18 +4,9 @@ node_modules/
 # Vite build output
 dist/
 
-# Electron builder output
+# Electron build output
 dist_electron/
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS generated files
+# OS / editor files
 .DS_Store
-Thumbs.db
-
-# Optional: IDE configs
 .vscode/
-.idea/
