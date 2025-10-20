@@ -1,18 +1,38 @@
 {
-  "name": "ITE-18 Activity 1.11",
-  "private": true,
+  "name": "star-app",
   "version": "0.0.0",
   "type": "module",
+  "main": "main.js",
   "scripts": {
     "dev": "vite",
-    "deploy": "vercel --prod",
-    "build": "vite build"
+    "build": "vite build",
+    "electron": "npm run build && electron .",
+    "dist": "electron-builder"
   },
   "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^26.0.12",
     "vite": "^7.1.10"
   },
   "dependencies": {
     "lil-gui": "^0.17.0",
     "three": "^0.148.0"
+  },
+  "build": {
+    "appId": "com.example.starapp",
+    "productName": "Star App",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "main.js",
+      "preload.js"
+    ],
+    "win": {
+      "target": "nsis"
+    }
   }
 }

@@ -1,0 +1,4 @@
+owner: trbyte
+repo: stars
+provider: github
+updaterCacheDirName: star-app-updater

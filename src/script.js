@@ -10,28 +10,28 @@ const gui = new dat.GUI()
 const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
-/* ---------- Material & Texture ---------- */
-const texture = new THREE.TextureLoader().load('/textures/matcaps/3.png')
+// Texture
+const texture = new THREE.TextureLoader().load('../static/textures/matcaps/3.png')
 texture.mapping = THREE.EquirectangularReflectionMapping
 texture.encoding = THREE.sRGBEncoding
 
 const material = new THREE.MeshStandardMaterial({
-  color: 0xffffff,
-  metalness: 0.7,
-  roughness: 0.25,
-  envMap: texture,
-  envMapIntensity: 1.2,
-  emissive: 0x000000
+    color: 0xffffff,
+    metalness: 0.7,
+    roughness: 0.25,
+    envMap: texture,
+    envMapIntensity: 1.2,
+    emissive: 0x000000
 })
 
 /* ---------- GUI Controls ---------- */
 const params = {
-  color: material.color.getHex(),
-  brightness: 1,
-  moveStars: false,
-  bloomStrength: 1,
-  bloomRadius: 0.4,
-  bloomThreshold: 0.2
+    color: material.color.getHex(),
+    brightness: 1,
+    moveStars: false,
+    bloomStrength: 1,
+    bloomRadius: 0.4,
+    bloomThreshold: 0.2
 }
 
 gui.addColor(params, 'color').name('Color').onChange(v => material.color.set(v))
@@ -52,28 +52,28 @@ scene.add(ambient, point)
 
 /* ---------- Star Creation ---------- */
 function createStar(size = 1) {
-  const shape = new THREE.Shape()
-  const outer = size, inner = size / 2.5
-  for (let i = 0; i < 10; i++) {
-    const angle = (i / 10) * Math.PI * 2
-    const r = i % 2 === 0 ? outer : inner
-    shape[i ? 'lineTo' : 'moveTo'](Math.cos(angle) * r, Math.sin(angle) * r)
-  }
-  const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.3, bevelEnabled: true, bevelSegments: 10, bevelSize: 0.2, bevelThickness: 0.2 })
-  geo.center()
-  return geo
+    const shape = new THREE.Shape()
+    const outer = size, inner = size / 2.5
+    for (let i = 0; i < 10; i++) {
+        const angle = (i / 10) * Math.PI * 2
+        const r = i % 2 === 0 ? outer : inner
+        shape[i ? 'lineTo' : 'moveTo'](Math.cos(angle) * r, Math.sin(angle) * r)
+    }
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.3, bevelEnabled: true, bevelSegments: 10, bevelSize: 0.2, bevelThickness: 0.2 })
+    geo.center()
+    return geo
 }
 
 const stars = new THREE.Group()
 scene.add(stars)
 
 for (let i = 0; i < 100; i++) {
-  const star = new THREE.Mesh(createStar(0.5 + Math.random() * 0.3), material)
-  star.position.set((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80)
-  const s = Math.random() * 1.2 + 0.6
-  star.scale.setScalar(s)
-  star.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0)
-  stars.add(star)
+    const star = new THREE.Mesh(createStar(0.5 + Math.random() * 0.3), material)
+    star.position.set((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80)
+    const s = Math.random() * 1.2 + 0.6
+    star.scale.setScalar(s)
+    star.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0)
+    stars.add(star)
 }
 
 /* ---------- Camera + Controls ---------- */
@@ -88,13 +88,13 @@ controls.enableDamping = true
 // Keyboard navigation
 const moveSpeed = 1
 window.addEventListener('keydown', e => {
-  const key = e.key.toLowerCase()
-  if (key === 'w') camera.position.z -= moveSpeed
-  if (key === 's') camera.position.z += moveSpeed
-  if (key === 'a') camera.position.x -= moveSpeed
-  if (key === 'd') camera.position.x += moveSpeed
-  if (key === 'q') camera.position.y += moveSpeed
-  if (key === 'e') camera.position.y -= moveSpeed
+    const key = e.key.toLowerCase()
+    if (key === 'w') camera.position.z -= moveSpeed
+    if (key === 's') camera.position.z += moveSpeed
+    if (key === 'a') camera.position.x -= moveSpeed
+    if (key === 'd') camera.position.x += moveSpeed
+    if (key === 'q') camera.position.y += moveSpeed
+    if (key === 'e') camera.position.y -= moveSpeed
 })
 
 /* ---------- Renderer + PostFX ---------- */
